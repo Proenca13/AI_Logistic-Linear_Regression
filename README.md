@@ -33,11 +33,12 @@ This project focuses on implementing **Linear Regression** and **Logistic Regres
 - Provide **clear and modular code** with proper documentation and comments.  
 
 ## Project Structure
-
-├── base_model.py # Abstract Base Model class
-├── linear_regression.py # Implementation of Linear Regression with L2 regularization
-├── logistic_regression.py # Implementation of Logistic Regression with L2 regularization
-├── utils.py # Helper functions (cost functions, metrics, etc.)
-├── tests/ # Unit tests for each component
-├── examples/ # Example notebooks or scripts demonstrating usage
-└── README.md # Project documentation
+```
+   ├── base_model.py # Abstract Base Model class
+   ├── linear_regression.py # Implementation of Linear Regression with L2 regularization
+   ├── logistic_regression.py # Implementation of Logistic Regression with L2 regularization
+   ├── utils.py # Helper functions (cost functions, metrics, etc.)
+   ├── tests/ # Unit tests for each component
+   ├── examples/ # Example notebooks or scripts demonstrating usage
+   └── README.md # Project documentation
+```
