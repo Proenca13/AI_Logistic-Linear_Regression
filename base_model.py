@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 class BaseModel(ABC):
-    def __init__(self, learning_rate, iterations = 1000,lambda_ = 0.01):
+    def __init__(self, learning_rate = 0.01, iterations = 1000,lambda_ = 0.01):
         self.learning_rate = learning_rate
         self.iterations = iterations
         self.lambda_ = lambda_

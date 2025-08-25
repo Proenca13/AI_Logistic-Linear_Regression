@@ -3,12 +3,12 @@ import base_model
 from utils import Mean_Squared_Error,Root_Mean_Squared_Error
 class LinearRegression(base_model.BaseModel):
 
-    def __init__(self, learning_rate, iterations = 1000,lambda_ = 0.01):
+    def __init__(self, learning_rate = 0.01, iterations = 1000,lambda_ = 0.01):
         """
                 Initialize LinearRegression model.
 
                 Args:
-                    learning_rate (float): Step size for gradient descent.
+                    learning_rate (float): Step size for gradient descent. Default = 0.01.
                     iterations (int): Number of gradient descent iterations. Default = 1000.
                     lambda_ (float): Regularization strength (L2). Default = 0.01.
         """
