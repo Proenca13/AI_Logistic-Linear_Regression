@@ -1,19 +1,33 @@
 import numpy as np
-def Round_Squared_Mean_Error(y_true, y_pred):
+def Mean_Squared_Error(y_test, y_pred):
     """
-                    Calculate the Root Mean Squared Error (RMSE).
+                    Calculate the Root Mean Squared Error (MSE).
 
                     Args:
-                        y_true (ndarray): True target values, shape (n_samples,).
+                        y_test (ndarray): True target values, shape (n_samples,).
                         y_pred (ndarray): Predicted values, shape (n_samples,).
 
                     Returns:
-                        float: Evaluation metric (RMSE).
+                        float: Evaluation metric (MSE).
             """
     m = y_pred.shape[0]
-    loss = (y_true - y_pred)**2
+    loss = (y_test - y_pred)**2
     cost = np.sum(loss) / (2*m)
     return cost
 
-def Binary_Cross_Entropy(y_true, y_pred):
+def Root_Mean_Squared_Error(y_test, y_pred):
+    """
+    Calculate the Root Mean Squared Error (RMSE).
+
+    Args:
+        y_test (ndarray): True target values, shape (n_samples,).
+        y_pred (ndarray): Predicted values, shape (n_samples,).
+
+    Returns:
+        float: RMSE.
+    """
+    rmse = np.sqrt(np.mean((y_test - y_pred) ** 2))
+    return rmse
+
+def Binary_Cross_Entropy(y_test, y_pred):
     return

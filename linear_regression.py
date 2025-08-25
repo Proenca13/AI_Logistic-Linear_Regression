@@ -1,6 +1,6 @@
 import numpy as np
 import base_model
-from utils import Round_Squared_Mean_Error
+from utils import Mean_Squared_Error,Root_Mean_Squared_Error
 class LinearRegression(base_model.BaseModel):
 
     def __init__(self, learning_rate, iterations = 1000,lambda_ = 0.01):
@@ -34,7 +34,7 @@ class LinearRegression(base_model.BaseModel):
 
             # Compute cost
             y_pred = self.predict(X_train)
-            self.cost_history[i] = Round_Squared_Mean_Error(y_pred, y_train)
+            self.cost_history[i] = Mean_Squared_Error(y_train, y_pred)
 
             # Early stopping check (skip i=0)
             if i > 0 and abs(self.cost_history[i - 1] - self.cost_history[i]) < tolerance:
@@ -56,34 +56,36 @@ class LinearRegression(base_model.BaseModel):
 
     def evaluate(self, X_test, y_test):
         """
-                Evaluate the model on test data using Root Mean Squared Error (RMSE).
+        Evaluate the model on test data and return MSE and RMSE.
 
-                Args:
-                    X_test (ndarray): Test features, shape (n_samples, n_features).
-                    y_test (ndarray): True target values, shape (n_samples,).
+        Args:
+            X_test (ndarray): Test features, shape (n_samples, n_features).
+            y_test (ndarray): True target values, shape (n_samples,).
 
-                Returns:
-                    float: Evaluation metric (RMSE).
+        Returns:
+            tuple: (MSE, RMSE)
         """
         y_pred = np.dot(X_test, self.weights) + self.bias
-        return Round_Squared_Mean_Error(y_pred, y_test)
+        mse = float(Mean_Squared_Error(y_test, y_pred))
+        rmse = float(Root_Mean_Squared_Error(y_test, y_pred))
+        return mse, rmse
 
     def gradient_descent(self, X_train, y_train):
-        """
-                Perform one step of gradient descent and update weights and bias.
+            """
+                    Perform one step of gradient descent and update weights and bias.
 
-                Args:
-                    X_train (ndarray): Training features, shape (n_samples, n_features).
-                    y_train (ndarray): Training targets, shape (n_samples,).
-        """
-        n_samples = X_train.shape[0]
+                    Args:
+                        X_train (ndarray): Training features, shape (n_samples, n_features).
+                        y_train (ndarray): Training targets, shape (n_samples,).
+            """
+            n_samples = X_train.shape[0]
 
-        y_pred = np.dot(X_train, self.weights) + self.bias
+            y_pred = np.dot(X_train, self.weights) + self.bias
 
-        ## Calculate the derivates of w and b
-        dw = (1/n_samples) * np.dot(X_train.T, (y_pred - y_train))
-        db = (1/n_samples) * np.sum(y_pred - y_train)
+            ## Calculate the derivates of w and b
+            dw = (1/n_samples) * np.dot(X_train.T, (y_pred - y_train))
+            db = (1/n_samples) * np.sum(y_pred - y_train)
 
-        ## Update w and b
-        self.weights -= self.learning_rate * dw
-        self.bias -= self.learning_rate * db
+            ## Update w and b
+            self.weights -= self.learning_rate * dw
+            self.bias -= self.learning_rate * db
