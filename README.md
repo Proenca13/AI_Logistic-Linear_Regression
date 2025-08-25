@@ -7,7 +7,7 @@ This project focuses on implementing **Linear Regression** and **Logistic Regres
 1. **Implement a Base Model class** that defines essential methods such as:
    - `fit()`
    - `predict()`
-   - `score()`
+   - `evaluate()`
    - Support for common utilities like cost calculation and gradient updates.
    
 2. **Implement Linear Regression** with:
@@ -38,7 +38,6 @@ This project focuses on implementing **Linear Regression** and **Logistic Regres
    ├── linear_regression.py # Implementation of Linear Regression with L2 regularization
    ├── logistic_regression.py # Implementation of Logistic Regression with L2 regularization
    ├── utils.py # Helper functions (cost functions, metrics, etc.)
-   ├── tests/ # Unit tests for each component
-   ├── examples/ # Example notebooks or scripts demonstrating usage
+   ├── model_validation.ipynb/ # Validation of the models and comparassion with scikit-learn 
    └── README.md # Project documentation
 ```
