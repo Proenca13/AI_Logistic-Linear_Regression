@@ -1,5 +1,5 @@
 import numpy as np
-def Mean_Squared_Error(y_test, y_pred):
+def Mean_Squared_Error(y_test, y_pred,lambda_,weights):
     """
                     Calculate the Root Mean Squared Error (MSE).
 
@@ -13,7 +13,8 @@ def Mean_Squared_Error(y_test, y_pred):
     m = y_pred.shape[0]
     loss = (y_test - y_pred)**2
     cost = np.sum(loss) / (2*m)
-    return cost
+    regularization = (lambda_/(2*m)) * np.sum(weights**2)
+    return cost + regularization
 
 def Root_Mean_Squared_Error(y_test, y_pred):
     """

@@ -34,7 +34,7 @@ class LinearRegression(base_model.BaseModel):
 
             # Compute cost
             y_pred = self.predict(X_train)
-            self.cost_history[i] = Mean_Squared_Error(y_train, y_pred)
+            self.cost_history[i] = Mean_Squared_Error(y_train, y_pred,lambda_=self.lambda_,weights=self.weights)
 
             # Early stopping check (skip i=0)
             if i > 0 and abs(self.cost_history[i - 1] - self.cost_history[i]) < tolerance:
@@ -66,7 +66,7 @@ class LinearRegression(base_model.BaseModel):
             tuple: (MSE, RMSE)
         """
         y_pred = np.dot(X_test, self.weights) + self.bias
-        mse = float(Mean_Squared_Error(y_test, y_pred))
+        mse = float(Mean_Squared_Error(y_test, y_pred,lambda_= 0,weights= self.weights))
         rmse = float(Root_Mean_Squared_Error(y_test, y_pred))
         return mse, rmse
 
@@ -83,8 +83,10 @@ class LinearRegression(base_model.BaseModel):
             y_pred = np.dot(X_train, self.weights) + self.bias
 
             ## Calculate the derivates of w and b
-            dw = (1/n_samples) * np.dot(X_train.T, (y_pred - y_train))
+            regularization = self.lambda_ * self.weights / n_samples
+            dw = (1/n_samples) * np.dot(X_train.T, (y_pred - y_train)) + regularization
             db = (1/n_samples) * np.sum(y_pred - y_train)
+
 
             ## Update w and b
             self.weights -= self.learning_rate * dw
