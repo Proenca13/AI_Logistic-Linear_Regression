@@ -56,15 +56,15 @@ def Binary_Cross_Entropy(y_true, y_pred, lambda_=0.0, weights=None):
     y_pred = np.clip(y_pred, eps, 1 - eps)
 
     # Compute Binary Cross-Entropy
-    loss = y_true * np.log(y_pred) + (1 - y_true) * np.log(1 - y_pred)
-    cost = -np.sum(loss) / y_true.shape[0]
+    cost = y_true * np.log(y_pred) + (1 - y_true) * np.log(1 - y_pred)
+    loss = -np.sum(cost) / y_true.shape[0]
 
     # Add L2 regularization (if weights provided)
     regularization = 0.0
     if weights is not None:
         regularization = (lambda_ / (2 * y_true.shape[0])) * np.sum(weights ** 2)
 
-    return cost + regularization
+    return loss + regularization
 
 def sigmoid(z):
     """

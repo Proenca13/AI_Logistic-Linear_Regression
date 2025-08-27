@@ -15,7 +15,7 @@ class BaseModel(ABC):
         pass
 
     @abstractmethod
-    def evaluate(self, X_test, y_test):
+    def evaluate(self, X_test, y_test, threshold = None):
         pass
 
     @abstractmethod

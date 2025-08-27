@@ -54,7 +54,7 @@ class LinearRegression(base_model.BaseModel):
         prediction = np.dot(X_test, self.weights) + self.bias
         return prediction
 
-    def evaluate(self, X_test, y_test):
+    def evaluate(self, X_test, y_test, threshold = None):
         """
         Evaluate the model on test data and return MSE and RMSE.
 
@@ -66,7 +66,7 @@ class LinearRegression(base_model.BaseModel):
             tuple: (MSE, RMSE)
         """
         y_pred = np.dot(X_test, self.weights) + self.bias
-        mse = float(Mean_Squared_Error(y_test, y_pred,lambda_= 0,weights= self.weights))
+        mse = float(Mean_Squared_Error(y_test, y_pred,lambda_= 0,weights= None))
         rmse = float(Root_Mean_Squared_Error(y_test, y_pred))
         return mse, rmse
 
