@@ -7,9 +7,30 @@ class LogisticRegression(base_model.BaseModel):
         super().__init__(learning_rate, iterations,lambda_)
 
     def fit(self, X_train, y_train):
+        """
+        Train the Logistic Regression model using gradient descent.
+
+        Args:
+            X_train (ndarray): Training features, shape (n_samples, n_features).
+            y_train (ndarray): Training targets, shape (n_samples,).
+        """
         self.weights = np.random.rand(X_train.shape[1])
         self.bias = 0
-        return
+        self.cost_history = np.zeros(self.iterations, dtype=np.float64)
+        tolerance = 1e-4
+
+        for i in range(self.iterations):
+            # Update weights and bias
+            self.gradient_descent(X_train, y_train)
+
+            # Compute cost
+            y_pred = self.predict(X_train)
+            self.cost_history[i] = Binary_Cross_Entropy(y_train, y_pred, lambda_=self.lambda_, weights=self.weights)
+
+            # Early stopping check
+            if i > 0 and abs(self.cost_history[i - 1] - self.cost_history[i]) < tolerance:
+                self.cost_history = self.cost_history[:i + 1]  # trim unused entries
+                break
 
     def predict(self, X_test):
         """

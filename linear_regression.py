@@ -36,7 +36,7 @@ class LinearRegression(base_model.BaseModel):
             y_pred = self.predict(X_train)
             self.cost_history[i] = Mean_Squared_Error(y_train, y_pred,lambda_=self.lambda_,weights=self.weights)
 
-            # Early stopping check (skip i=0)
+            # Early stopping check
             if i > 0 and abs(self.cost_history[i - 1] - self.cost_history[i]) < tolerance:
                 self.cost_history = self.cost_history[:i + 1]  # trim unused entries
                 break
