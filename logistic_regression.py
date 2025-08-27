@@ -62,4 +62,23 @@ class LogisticRegression(base_model.BaseModel):
         return np.sum(y_pred_binary == y_test) / len(y_test)
 
     def gradient_descent(self, X_train, y_train):
-        return
+        """
+            Perform one step of gradient descent and update weights and bias.
+
+            Args:
+                 X_train (ndarray): Training features, shape (n_samples, n_features).
+                 y_train (ndarray): Training targets, shape (n_samples,).
+        """
+        n_samples = X_train.shape[0]
+
+        y_pred = np.dot(X_train, self.weights) + self.bias
+        y_pred = sigmoid(y_pred)
+
+        ## Calculate the derivates of w and b
+        regularization = self.lambda_ * self.weights / n_samples
+        dw = (1 / n_samples) * np.dot(X_train.T, (y_pred - y_train)) + regularization
+        db = (1 / n_samples) * np.sum(y_pred - y_train)
+
+        ## Update w and b
+        self.weights -= self.learning_rate * dw
+        self.bias -= self.learning_rate * db
