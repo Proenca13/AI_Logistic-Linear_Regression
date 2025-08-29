@@ -47,7 +47,7 @@ class LogisticRegression(base_model.BaseModel):
 
     def evaluate(self, X_test, y_test, threshold=0.5):
         """
-        Evaluates the model's accuracy on the test dataset using a classification threshold.
+        Evaluates the model using accuracy, precision, recall, and F1-score.
 
         Args:
             X_test (ndarray): Input features of shape (n_samples, n_features).
@@ -55,15 +55,17 @@ class LogisticRegression(base_model.BaseModel):
             threshold (float): Decision threshold for classifying probabilities (default=0.5).
 
         Returns:
-            float: Classification accuracy (correct predictions / total samples).
+            tuple: (accuracy, precision_score, recall_score, f1_score)
         """
         y_pred = self.predict(X_test)
         y_pred_binary = (y_pred > threshold).astype(int)
+
         accuracy = np.sum(y_pred_binary == y_test) / len(y_test)
-        precision = precision(y_test, y_pred_binary)
-        recall = recall(y_test, y_pred_binary)
-        f1 = f1(precision,recall)
-        return accuracy, precision, recall, f1
+        prec = precision(y_test, y_pred_binary)
+        rec = recall(y_test, y_pred_binary)
+        f1_score = f1(prec, rec)
+
+        return accuracy, prec, rec, f1_score
 
     def gradient_descent(self, X_train, y_train):
         """
