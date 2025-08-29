@@ -77,3 +77,64 @@ def sigmoid(z):
         float or ndarray: Sigmoid of the input, mapping values to the range (0, 1).
     """
     return 1 / (1 + np.exp(-z))
+
+def precision(y_test, y_pred):
+    """
+    Compute the precision score for binary classification.
+
+    Precision = TP / (TP + FP)
+
+    Args:
+        y_test (ndarray): True binary labels, shape (n_samples,).
+        y_pred (ndarray): Predicted binary labels, shape (n_samples,).
+
+    Returns:
+        float: Precision score, the proportion of predicted positives that are actually positive.
+    """
+    tp = 0
+    fp = 0
+    for x in range(len(y_test)):
+        if y_test[x] == 1 and y_pred[x] == 1:
+            tp += 1
+        elif y_test[x] == 0 and y_pred[x] == 1:
+            fp += 1
+    return tp / (tp + fp)
+
+
+def recall(y_test, y_pred):
+    """
+    Compute the recall score for binary classification.
+
+    Recall = TP / (TP + FN)
+
+    Args:
+        y_test (ndarray): True binary labels, shape (n_samples,).
+        y_pred (ndarray): Predicted binary labels, shape (n_samples,).
+
+    Returns:
+        float: Recall score, the proportion of actual positives that were correctly predicted.
+    """
+    tp = 0
+    fn = 0
+    for x in range(len(y_test)):
+        if y_test[x] == 1 and y_pred[x] == 1:
+            tp += 1
+        elif y_test[x] == 1 and y_pred[x] == 0:
+            fn += 1
+    return tp / (tp + fn)
+
+
+def f1(precision, recall):
+    """
+    Compute the F1-score, the harmonic mean of precision and recall.
+
+    F1 = 2 * (Precision * Recall) / (Precision + Recall)
+
+    Args:
+        precision (float): Precision score.
+        recall (float): Recall score.
+
+    Returns:
+        float: F1-score, balances precision and recall.
+    """
+    return 2 * precision * recall / (precision + recall)

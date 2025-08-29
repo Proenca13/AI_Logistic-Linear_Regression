@@ -59,7 +59,11 @@ class LogisticRegression(base_model.BaseModel):
         """
         y_pred = self.predict(X_test)
         y_pred_binary = (y_pred > threshold).astype(int)
-        return np.sum(y_pred_binary == y_test) / len(y_test)
+        accuracy = np.sum(y_pred_binary == y_test) / len(y_test)
+        precision = precision(y_test, y_pred_binary)
+        recall = recall(y_test, y_pred_binary)
+        f1 = f1(precision,recall)
+        return accuracy, precision, recall, f1
 
     def gradient_descent(self, X_train, y_train):
         """
